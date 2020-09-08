@@ -9,10 +9,12 @@ import 'package:bright/states/app_state.dart';
 class ViewModel extends BaseModel<AppState> {
   List<StudentModel> studentList;
   Function(String) onEditStudentCurrent;
+  Function(String) onEditMeet;
   ViewModel();
   ViewModel.build({
     @required this.studentList,
     @required this.onEditStudentCurrent,
+    @required this.onEditMeet,
   }) : super(equals: [
           studentList,
         ]);
@@ -22,6 +24,10 @@ class ViewModel extends BaseModel<AppState> {
         onEditStudentCurrent: (String id) {
           dispatch(SetStudentCurrentSyncStudentAction(id));
           dispatch(NavigateAction.pushNamed(Routes.studentEdit));
+        },
+        onEditMeet: (String id) {
+          dispatch(SetStudentCurrentSyncStudentAction(id));
+          dispatch(NavigateAction.pushNamed(Routes.meetList));
         },
       );
 }
@@ -36,6 +42,7 @@ class StudentList extends StatelessWidget {
       builder: (context, viewModel) => StudentListDS(
         studentList: viewModel.studentList,
         onEditStudentCurrent: viewModel.onEditStudentCurrent,
+        onEditMeet: viewModel.onEditMeet,
       ),
     );
   }

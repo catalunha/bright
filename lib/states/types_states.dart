@@ -6,6 +6,36 @@ enum AuthenticationStatusLogged {
   sendPasswordReset,
 }
 
+// +++ StudentFilter +++
+enum StudentFilter {
+  active,
+  inactive,
+}
+
+extension StudentFilterExtension on StudentFilter {
+  static const names = {
+    StudentFilter.active: 'Ativos',
+    StudentFilter.inactive: 'Inativos',
+  };
+  String get label => names[this];
+}
+// --- StudentFilter ---
+
+// +++ StudentFilter +++
+enum MeetFilter {
+  paid,
+  notpaid,
+}
+
+extension MeetFilterExtension on MeetFilter {
+  static const names = {
+    MeetFilter.paid: 'Pago',
+    MeetFilter.notpaid: 'Não Pago',
+  };
+  String get label => names[this];
+}
+// --- MeetFilter ---
+
 //+++ UserOrder
 enum UserOrder {
   name,
@@ -18,22 +48,3 @@ extension UserOrderExtension on UserOrder {
   String get label => names[this];
 }
 //--- UserOrder
-
-//+++ InfoCodeOrder
-enum InfoCodeOrder {
-  code,
-  name,
-  unit,
-  infoIndOwnerRefName,
-}
-
-extension InfoCodeOrderExtension on InfoCodeOrder {
-  static const names = {
-    InfoCodeOrder.code: 'Codigo',
-    InfoCodeOrder.name: 'Nome',
-    InfoCodeOrder.unit: 'Unidade',
-    InfoCodeOrder.infoIndOwnerRefName: 'Organizador',
-  };
-  String get label => names[this];
-}
-//--- InfoCodeOrder

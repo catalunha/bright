@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
       store: store,
       child: MaterialApp(
         theme: ThemeData.dark(),
-        title: 'bright',
+        title: 'Bright',
         navigatorKey: Keys.navigatorStateKey,
         initialRoute: Routes.home,
         routes: Routes.routes,

@@ -1,6 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:bright/models/student_model.dart';
+import 'package:bright/models/user_model.dart';
 import 'package:bright/states/app_state.dart';
+import 'package:bright/states/types_states.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // +++ Actions Sync
@@ -28,15 +30,41 @@ class SetStudentCurrentSyncStudentAction extends ReduxAction<AppState> {
   }
 }
 
+class SetStudentFilterSyncStudentAction extends ReduxAction<AppState> {
+  final StudentFilter studentFilter;
+
+  SetStudentFilterSyncStudentAction(this.studentFilter);
+
+  @override
+  AppState reduce() {
+    return state.copyWith(
+      studentState: state.studentState.copyWith(
+        studentFilter: studentFilter,
+      ),
+    );
+  }
+
+  void after() => dispatch(GetDocsStudentListAsyncStudentAction());
+}
+
 // +++ Actions Async
 class GetDocsStudentListAsyncStudentAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     print('GetDocsStudentListAsyncStudentAction...');
     Firestore firestore = Firestore.instance;
-
-    final collRef = firestore.collection(StudentModel.collection);
-    // .where('active', isEqualTo: true);
+    Query collRef;
+    if (state.studentState.studentFilter == StudentFilter.active) {
+      collRef = firestore
+          .collection(StudentModel.collection)
+          .where('userRef.id', isEqualTo: state.loggedState.userModelLogged.id)
+          .where('active', isEqualTo: true);
+    } else if (state.studentState.studentFilter == StudentFilter.inactive) {
+      collRef = firestore
+          .collection(StudentModel.collection)
+          .where('userRef.id', isEqualTo: state.loggedState.userModelLogged.id)
+          .where('active', isEqualTo: false);
+    }
     final docsSnap = await collRef.getDocuments();
 
     final listDocs = docsSnap.documents
@@ -58,6 +86,7 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
   final String phone;
   final String urlProgram;
   final String urlDiary;
+  final String group;
   final String description;
 
   AddDocStudentCurrentAsyncStudentAction({
@@ -67,6 +96,7 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     this.phone,
     this.urlProgram,
     this.urlDiary,
+    this.group,
     this.description,
   });
   @override
@@ -76,6 +106,8 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     StudentModel studentModel =
         StudentModel(state.studentState.studentCurrent.id)
             .fromMap(state.studentState.studentCurrent.toMap());
+    studentModel.userRef = UserModel(state.loggedState.userModelLogged.id)
+        .fromMap(state.loggedState.userModelLogged.toMapRef());
     studentModel.code = code;
     studentModel.name = name;
     studentModel.email = email;
@@ -83,6 +115,7 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     studentModel.urlProgram = urlProgram;
     studentModel.urlDiary = urlDiary;
     studentModel.description = description;
+    studentModel.group = group;
     studentModel.active = true;
     var docRef = await firestore
         .collection(StudentModel.collection)
@@ -109,6 +142,7 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
   final String phone;
   final String urlProgram;
   final String urlDiary;
+  final String group;
   final String description;
   final bool active;
 
@@ -119,6 +153,7 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     this.phone,
     this.urlProgram,
     this.urlDiary,
+    this.group,
     this.description,
     this.active,
   });
@@ -135,6 +170,7 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     studentModel.phone = phone;
     studentModel.urlProgram = urlProgram;
     studentModel.urlDiary = urlDiary;
+    studentModel.group = group;
     studentModel.description = description;
     studentModel.active = active;
     await firestore

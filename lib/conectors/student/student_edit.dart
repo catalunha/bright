@@ -11,11 +11,13 @@ class ViewModel extends BaseModel<AppState> {
   String phone;
   String urlProgram;
   String urlDiary;
+  String group;
   String description;
   bool active;
   bool isAddOrUpdate;
-  Function(String, String, String, String, String, String, String) onAdd;
-  Function(String, String, String, String, String, String, String, bool)
+  Function(String, String, String, String, String, String, String, String)
+      onAdd;
+  Function(String, String, String, String, String, String, String, String, bool)
       onUpdate;
   ViewModel();
   ViewModel.build({
@@ -25,6 +27,7 @@ class ViewModel extends BaseModel<AppState> {
     @required this.phone,
     @required this.urlProgram,
     @required this.urlDiary,
+    @required this.group,
     @required this.description,
     @required this.active,
     @required this.isAddOrUpdate,
@@ -37,6 +40,7 @@ class ViewModel extends BaseModel<AppState> {
           phone,
           urlProgram,
           urlDiary,
+          group,
           description,
           active,
           isAddOrUpdate,
@@ -50,10 +54,17 @@ class ViewModel extends BaseModel<AppState> {
         phone: state.studentState.studentCurrent.phone,
         urlProgram: state.studentState.studentCurrent.urlProgram,
         urlDiary: state.studentState.studentCurrent.urlDiary,
+        group: state.studentState.studentCurrent.group,
         description: state.studentState.studentCurrent.description,
         active: state.studentState.studentCurrent?.active ?? false,
-        onAdd: (String code, String name, String email, String phone,
-            String urlProgram, String urlDiary, String description) {
+        onAdd: (String code,
+            String name,
+            String email,
+            String phone,
+            String urlProgram,
+            String urlDiary,
+            String group,
+            String description) {
           dispatch(AddDocStudentCurrentAsyncStudentAction(
             code: code,
             name: name,
@@ -61,6 +72,7 @@ class ViewModel extends BaseModel<AppState> {
             phone: phone,
             urlProgram: urlProgram,
             urlDiary: urlDiary,
+            group: group,
             description: description,
           ));
           dispatch(NavigateAction.pop());
@@ -71,6 +83,7 @@ class ViewModel extends BaseModel<AppState> {
             String phone,
             String urlProgram,
             String urlDiary,
+            String group,
             String description,
             bool active) {
           dispatch(UpdateDocStudentCurrentAsyncStudentAction(
@@ -80,6 +93,7 @@ class ViewModel extends BaseModel<AppState> {
             phone: phone,
             urlProgram: urlProgram,
             urlDiary: urlDiary,
+            group: group,
             description: description,
             active: active,
           ));

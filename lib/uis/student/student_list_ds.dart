@@ -1,21 +1,26 @@
+import 'package:bright/conectors/student/student_filtering.dart';
 import 'package:bright/models/student_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StudentListDS extends StatelessWidget {
   final List<StudentModel> studentList;
   final Function(String) onEditStudentCurrent;
+  final Function(String) onEditMeet;
 
   const StudentListDS({
     Key key,
     this.studentList,
     this.onEditStudentCurrent,
+    this.onEditMeet,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Lista de estudantes (${studentList.length})'),
+        title: Text('Estudantes (${studentList.length})'),
+        actions: [StudentFiltering()],
       ),
       body: ListView.builder(
         itemCount: studentList.length,
@@ -29,14 +34,36 @@ class StudentListDS extends StatelessWidget {
                   title: Text('${student.name}'),
                   subtitle: Text('${student.toString()}'),
                   onTap: () {
-                    onEditStudentCurrent(student.id);
+                    onEditMeet(student.id);
                   },
                 ),
                 Wrap(
                   children: [
                     IconButton(
-                      icon: Icon(Icons.ac_unit),
-                      onPressed: () {},
+                      icon: Icon(Icons.edit),
+                      onPressed: () async {
+                        onEditStudentCurrent(student.id);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.link),
+                      onPressed: () async {
+                        if (student?.urlProgram != null) {
+                          if (await canLaunch(student.urlProgram)) {
+                            await launch(student.urlProgram);
+                          }
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.link),
+                      onPressed: () async {
+                        if (student?.urlDiary != null) {
+                          if (await canLaunch(student.urlDiary)) {
+                            await launch(student.urlDiary);
+                          }
+                        }
+                      },
                     ),
                   ],
                 ),
