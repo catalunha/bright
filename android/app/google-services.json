@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "1074499349412",
+    "firebase_url": "https://bright-fabiocosta.firebaseio.com",
+    "project_id": "bright-fabiocosta",
+    "storage_bucket": "bright-fabiocosta.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1074499349412:android:08fb22f02e1d1309662f31",
+        "android_client_info": {
+          "package_name": "com.fabiocosta.bright"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1074499349412-gnmo9gh19345ivva93t4po4gfrq6ctc6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6JrSCCDwV8-Oi0V7_wPt9V3kyKwJGi2M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1074499349412-gnmo9gh19345ivva93t4po4gfrq6ctc6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
