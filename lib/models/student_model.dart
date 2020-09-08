@@ -66,6 +66,8 @@ class StudentModel extends FirestoreModel {
   String toString() {
     String _return = '';
     _return = _return + 'Código: $code';
+    // _return = _return + 'email: $email';
+    // _return = _return + 'Tel.: $phone';
     return _return;
   }
 }
