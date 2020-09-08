@@ -116,6 +116,7 @@ class StudentEdit extends StatelessWidget {
         phone: viewModel.phone,
         urlProgram: viewModel.urlProgram,
         urlDiary: viewModel.urlDiary,
+        group: viewModel.group,
         description: viewModel.description,
         active: viewModel.active,
         onAdd: viewModel.onAdd,

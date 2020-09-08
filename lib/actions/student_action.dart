@@ -71,6 +71,8 @@ class GetDocsStudentListAsyncStudentAction extends ReduxAction<AppState> {
         .map(
             (docSnap) => StudentModel(docSnap.documentID).fromMap(docSnap.data))
         .toList();
+
+    listDocs.sort((a, b) => a.name.compareTo(b.name));
     return state.copyWith(
       studentState: state.studentState.copyWith(
         studentList: listDocs,

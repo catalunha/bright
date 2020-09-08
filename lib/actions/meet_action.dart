@@ -79,6 +79,9 @@ class GetDocsMeetListAsyncMeetAction extends ReduxAction<AppState> {
     final listDocs = docsSnap.documents
         .map((docSnap) => MeetModel(docSnap.documentID).fromMap(docSnap.data))
         .toList();
+
+    listDocs.sort((a, b) => a.start.compareTo(b.start));
+
     return state.copyWith(
       meetState: state.meetState.copyWith(
         meetList: listDocs,
