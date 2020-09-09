@@ -12,12 +12,14 @@ class ViewModel extends BaseModel<AppState> {
   StudentModel studentCurrent;
   String debt;
   Function(String) onEditMeetCurrent;
+  Function(String) onSetMeetCurrent;
   ViewModel();
   ViewModel.build({
     @required this.meetList,
     @required this.debt,
     @required this.studentCurrent,
     @required this.onEditMeetCurrent,
+    @required this.onSetMeetCurrent,
   }) : super(equals: [
           meetList,
           debt,
@@ -34,14 +36,16 @@ class ViewModel extends BaseModel<AppState> {
 
   @override
   ViewModel fromStore() => ViewModel.build(
-        meetList: state.meetState.meetList,
-        debt: _debt(),
-        studentCurrent: state.studentState.studentCurrent,
-        onEditMeetCurrent: (String id) {
-          dispatch(SetMeetCurrentSyncMeetAction(id));
-          dispatch(NavigateAction.pushNamed(Routes.meetEdit));
-        },
-      );
+      meetList: state.meetState.meetList,
+      debt: _debt(),
+      studentCurrent: state.studentState.studentCurrent,
+      onEditMeetCurrent: (String id) {
+        dispatch(SetMeetCurrentSyncMeetAction(id));
+        dispatch(NavigateAction.pushNamed(Routes.meetEdit));
+      },
+      onSetMeetCurrent: (String id) {
+        dispatch(SetMeetCurrentSyncMeetAction(id));
+      });
 }
 
 class MeetList extends StatelessWidget {
@@ -56,6 +60,7 @@ class MeetList extends StatelessWidget {
         debt: viewModel.debt,
         studentCurrent: viewModel.studentCurrent,
         onEditMeetCurrent: viewModel.onEditMeetCurrent,
+        onSetMeetCurrent: viewModel.onSetMeetCurrent,
       ),
     );
   }

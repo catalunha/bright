@@ -201,16 +201,16 @@ class OnAuthStateChangedSyncLoggedAction extends ReduxAction<AppState> {
   @override
   Future<AppState> reduce() async {
     print('OnAuthStateChangedSyncLoggedAction...');
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    FirebaseUser firebaseUser;
 
-    firebaseUser = await firebaseAuth.currentUser();
-    if (firebaseUser?.uid != null) {
-      print('Auth de ultimo login uid: ${firebaseUser.uid}');
-      store.dispatch(
-          LoginSuccessfulSyncLoggedAction(firebaseUser: firebaseUser));
-    }
-
+    FirebaseAuth.instance.onAuthStateChanged.listen((event) {
+      if (event == null) {
+        print('User is currently signed out!');
+      } else {
+        print('User is signed in!');
+        print('Auth de ultimo login uid: ${event.uid}');
+        store.dispatch(LoginSuccessfulSyncLoggedAction(firebaseUser: event));
+      }
+    });
     return null;
   }
 }

@@ -160,3 +160,21 @@ class UpdateDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
   @override
   void after() => dispatch(GetDocsMeetListAsyncMeetAction());
 }
+
+class CopyCurrentMeetToAnotherStudentSyncMeetAction
+    extends ReduxAction<AppState> {
+  final String studentId;
+  CopyCurrentMeetToAnotherStudentSyncMeetAction(this.studentId);
+  @override
+  Future<AppState> reduce() async {
+    print('CopyCurrentMeetToAnotherStudentSyncMeetAction...');
+    Firestore firestore = Firestore.instance;
+    MeetModel meetModelNew = MeetModel(state.meetState.meetCurrent.id)
+        .fromMap(state.meetState.meetCurrent.toMap());
+    StudentModel studentModelTemp = state.studentState.studentList
+        .firstWhere((element) => element.id == studentId);
+    meetModelNew.studentRef = studentModelTemp;
+    await firestore.collection(MeetModel.collection).add(meetModelNew.toMap());
+    return null;
+  }
+}

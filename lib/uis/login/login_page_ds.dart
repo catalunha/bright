@@ -65,6 +65,7 @@ class LoginPageDSState extends State<LoginPageDS> {
                 ),
                 TextFormField(
                   // initialValue: 'bright',
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password:',
                   ),

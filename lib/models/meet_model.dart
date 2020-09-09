@@ -67,13 +67,13 @@ class MeetModel extends FirestoreModel {
     return data;
   }
 
-  @override
-  String toString() {
-    String _return = '';
-    _return = _return + 'Preço: ${(price / 100).toStringAsFixed(2)}';
-    _return = _return +
-        '\nInicio: ${DateFormat('dd-MM-yyyy kk:mm').format(start)} com ${(end.difference(start)).toString().split('.').first.padLeft(8, "0")}';
-    // _return = _return + '\nFim: ${DateFormat('dd-MM-yyyy kk:mm').format(end)}';
+  List<String> toListString() {
+    List<String> _return = [];
+    _return.add('$topic');
+    _return.add('${DateFormat('dd-MM-yyyy kk:mm').format(start)}');
+    _return.add(
+        '${(end.difference(start)).toString().split('.').first.padLeft(8, "0").substring(0, 6).replaceFirst(':', 'h').replaceFirst(':', 'm')}');
+    _return.add('R\$ ${(price / 100).toStringAsFixed(2)}');
     return _return;
   }
 }
