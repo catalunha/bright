@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:bright/conectors/home/home_page.dart';
+import 'package:bright/conectors/student/student_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:bright/conectors/login/login_page.dart';
 import 'package:bright/states/app_state.dart';
 import 'package:bright/states/types_states.dart';
@@ -24,7 +25,8 @@ class Welcome extends StatelessWidget {
       //debug: this,
       model: ViewModel(),
       builder: (BuildContext context, ViewModel viewModel) =>
-          viewModel.logged ? HomePage() : LoginPage(),
+          // viewModel.logged ? HomePage() : LoginPage(),
+          viewModel.logged ? StudentList() : LoginPage(),
     );
   }
 }

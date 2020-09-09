@@ -22,8 +22,8 @@ class MyApp extends StatelessWidget {
   MyApp({Key key})
       : store = _store,
         super(key: key) {
-    store.dispatch(AuthenticationStatusSyncLoggedAction(
-        authenticationStatusLogged: AuthenticationStatusLogged.unInitialized));
+    // store.dispatch(AuthenticationStatusSyncLoggedAction(
+    //     authenticationStatusLogged: AuthenticationStatusLogged.unInitialized));
     store.dispatch(OnAuthStateChangedSyncLoggedAction());
   }
   @override
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData.dark(),
         title: 'Bright',
         navigatorKey: Keys.navigatorStateKey,
-        initialRoute: Routes.home,
+        initialRoute: Routes.welcome,
         routes: Routes.routes,
       ),
     );

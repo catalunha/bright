@@ -31,7 +31,7 @@ class LoginSuccessfulSyncLoggedAction extends ReduxAction<AppState> {
     print('LoginSuccessfulSyncLoggedAction...');
     return state.copyWith(
       loggedState: state.loggedState.copyWith(
-        authenticationStatusLogged: AuthenticationStatusLogged.authenticated,
+        // authenticationStatusLogged: AuthenticationStatusLogged.authenticated,
         firebaseUserLogged: firebaseUser,
       ),
     );
@@ -181,18 +181,36 @@ class LogoutAsyncLoggedAction extends ReduxAction<AppState> {
   }
 }
 
+// class OnAuthStateChangedSyncLoggedAction extends ReduxAction<AppState> {
+//   @override
+//   Future<AppState> reduce() async {
+//     print('OnAuthStateChangedSyncLoggedAction...');
+//     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+//     await firebaseAuth.currentUser().then((firebaseUser) {
+//       if (firebaseUser?.uid != null) {
+//         print('Auth de ultimo login uid: ${firebaseUser.uid}');
+//         store.dispatch(
+//             LoginSuccessfulSyncLoggedAction(firebaseUser: firebaseUser));
+//       }
+//     });
+//     return null;
+//   }
+// }
+
 class OnAuthStateChangedSyncLoggedAction extends ReduxAction<AppState> {
   @override
-  AppState reduce() {
+  Future<AppState> reduce() async {
     print('OnAuthStateChangedSyncLoggedAction...');
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    firebaseAuth.currentUser().then((firebaseUser) {
-      if (firebaseUser?.uid != null) {
-        print('Auth de ultimo login uid: ${firebaseUser.uid}');
-        store.dispatch(
-            LoginSuccessfulSyncLoggedAction(firebaseUser: firebaseUser));
-      }
-    });
+    FirebaseUser firebaseUser;
+
+    firebaseUser = await firebaseAuth.currentUser();
+    if (firebaseUser?.uid != null) {
+      print('Auth de ultimo login uid: ${firebaseUser.uid}');
+      store.dispatch(
+          LoginSuccessfulSyncLoggedAction(firebaseUser: firebaseUser));
+    }
+
     return null;
   }
 }
@@ -216,7 +234,12 @@ class GetDocsUserModelAsyncLoggedAction extends ReduxAction<AppState> {
       dispatch(CurrentUserModelSyncLoggedAction(
           userModel: UserModel(id)
               .fromMap({'email': state.loggedState.firebaseUserLogged.email})));
+
+      // authenticationStatusLogged: AuthenticationStatusLogged.authenticated,
+
     }
+    store.dispatch(AuthenticationStatusSyncLoggedAction(
+        authenticationStatusLogged: AuthenticationStatusLogged.authenticated));
     return null;
   }
 }

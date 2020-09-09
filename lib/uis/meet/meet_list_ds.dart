@@ -31,10 +31,11 @@ class MeetListDS extends StatelessWidget {
         itemBuilder: (context, index) {
           final meet = meetList[index];
           return Card(
+            color: meet.paid ? Colors.green[900] : Theme.of(context).cardColor,
             child: Column(
               children: [
                 ListTile(
-                  selected: meet.paid ?? false,
+                  // selected: meet.paid ?? false,
                   title: Text('${meet.topic}'),
                   subtitle: Text('${meet.toString()}'),
                   onTap: () {

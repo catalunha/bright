@@ -74,7 +74,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
             Text(widget.isAddOrUpdate ? 'Criar estudante' : 'Editar estudante'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         child: form(),
       ),
       floatingActionButton: FloatingActionButton(
@@ -92,22 +92,9 @@ class _StudentEditDSState extends State<StudentEditDS> {
       child: ListView(
         children: [
           TextFormField(
-            initialValue: widget.code,
-            decoration: InputDecoration(
-              labelText: 'Codigo do estudante',
-            ),
-            onSaved: (newValue) => _code = newValue,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Informe o que se pede.';
-              }
-              return null;
-            },
-          ),
-          TextFormField(
             initialValue: widget.name,
             decoration: InputDecoration(
-              labelText: 'Nome do estudante',
+              labelText: 'Nome do estudante*',
             ),
             onSaved: (newValue) => _name = newValue,
             validator: (value) {
@@ -120,7 +107,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.email,
             decoration: InputDecoration(
-              labelText: 'Email do estudante',
+              labelText: 'Email do estudante*',
             ),
             onSaved: (newValue) => _email = newValue,
             validator: (value) {
@@ -133,7 +120,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.phone,
             decoration: InputDecoration(
-              labelText: 'Telefone do estudante',
+              labelText: 'Telefone do estudante*',
             ),
             onSaved: (newValue) => _phone = newValue,
             validator: (value) {
@@ -144,17 +131,30 @@ class _StudentEditDSState extends State<StudentEditDS> {
             },
           ),
           TextFormField(
+            initialValue: widget.code,
+            decoration: InputDecoration(
+              labelText: 'Codigo do estudante',
+            ),
+            onSaved: (newValue) => _code = newValue,
+            // validator: (value) {
+            //   if (value.isEmpty) {
+            //     return 'Informe o que se pede.';
+            //   }
+            //   return null;
+            // },
+          ),
+          TextFormField(
             initialValue: widget.urlProgram,
             decoration: InputDecoration(
               labelText: 'Link para programa do estudante',
             ),
             onSaved: (newValue) => _urlProgram = newValue,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Informe o que se pede.';
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value.isEmpty) {
+            //     return 'Informe o que se pede.';
+            //   }
+            //   return null;
+            // },
           ),
           TextFormField(
             initialValue: widget.urlDiary,
@@ -162,12 +162,12 @@ class _StudentEditDSState extends State<StudentEditDS> {
               labelText: 'Link para diário do estudante',
             ),
             onSaved: (newValue) => _urlDiary = newValue,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Informe o que se pede.';
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value.isEmpty) {
+            //     return 'Informe o que se pede.';
+            //   }
+            //   return null;
+            // },
           ),
           TextFormField(
             initialValue: widget.group,
@@ -177,12 +177,12 @@ class _StudentEditDSState extends State<StudentEditDS> {
               labelText: 'Classe do estudante',
             ),
             onSaved: (newValue) => _group = newValue,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Informe o que se pede.';
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value.isEmpty) {
+            //     return 'Informe o que se pede.';
+            //   }
+            //   return null;
+            // },
           ),
           TextFormField(
             initialValue: widget.description,
@@ -192,12 +192,12 @@ class _StudentEditDSState extends State<StudentEditDS> {
               labelText: 'Descrição do estudante',
             ),
             onSaved: (newValue) => _description = newValue,
-            validator: (value) {
-              if (value.isEmpty) {
-                return 'Informe o que se pede.';
-              }
-              return null;
-            },
+            // validator: (value) {
+            //   if (value.isEmpty) {
+            //     return 'Informe o que se pede.';
+            //   }
+            //   return null;
+            // },
           ),
           widget.isAddOrUpdate
               ? Container()
@@ -212,6 +212,9 @@ class _StudentEditDSState extends State<StudentEditDS> {
                     });
                   },
                 ),
+          Container(
+            height: 50,
+          ),
         ],
       ),
     );

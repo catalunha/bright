@@ -71,9 +71,9 @@ class MeetModel extends FirestoreModel {
   String toString() {
     String _return = '';
     _return = _return + 'Preço: ${(price / 100).toStringAsFixed(2)}';
-    _return =
-        _return + '\nInicio: ${DateFormat('dd-MM-yyyy kk:mm').format(start)}';
-    _return = _return + '\nFim: ${DateFormat('dd-MM-yyyy kk:mm').format(end)}';
+    _return = _return +
+        '\nInicio: ${DateFormat('dd-MM-yyyy kk:mm').format(start)} com ${(end.difference(start)).toString().split('.').first.padLeft(8, "0")}';
+    // _return = _return + '\nFim: ${DateFormat('dd-MM-yyyy kk:mm').format(end)}';
     return _return;
   }
 }

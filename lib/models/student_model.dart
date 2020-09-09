@@ -80,9 +80,9 @@ class StudentModel extends FirestoreModel {
   @override
   String toString() {
     String _return = '';
-    _return = _return + 'Classe: $group';
-    _return = _return + '\nEmail: $email';
+    _return = _return + 'Email: $email';
     _return = _return + '\nTel.: $phone';
+    // _return = _return + '\nClasse: $group';
     // _return = _return + '\nCódigo: $code';
     return _return;
   }

@@ -9,23 +9,24 @@ import 'package:bright/uis/home/home_page_ds.dart';
 
 class ViewModel extends BaseModel<AppState> {
   UserModel userModel;
-  Function(StudentFilter) onPushStudentListWithFilter;
+  // Function(StudentFilter) onPushStudentListWithFilter;
 
   ViewModel();
   ViewModel.build({
     @required this.userModel,
-    @required this.onPushStudentListWithFilter,
+    // @required this.onPushStudentListWithFilter,
   }) : super(equals: [
           userModel,
         ]);
 
   @override
   ViewModel fromStore() => ViewModel.build(
-      userModel: state.loggedState.userModelLogged,
-      onPushStudentListWithFilter: (StudentFilter studentFilter) {
-        dispatch(SetStudentFilterSyncStudentAction(studentFilter));
-        dispatch(NavigateAction.pushNamed(Routes.studentList));
-      });
+        userModel: state.loggedState.userModelLogged,
+        // onPushStudentListWithFilter: (StudentFilter studentFilter) {
+        //   dispatch(SetStudentFilterSyncStudentAction(studentFilter));
+        //   dispatch(NavigateAction.pushNamed(Routes.studentList));
+        // }
+      );
 }
 
 class HomePage extends StatelessWidget {
@@ -36,7 +37,7 @@ class HomePage extends StatelessWidget {
       model: ViewModel(),
       builder: (BuildContext context, ViewModel viewModel) => HomePageDS(
         userModel: viewModel.userModel,
-        onPushStudentListWithFilter: viewModel.onPushStudentListWithFilter,
+        // onPushStudentListWithFilter: viewModel.onPushStudentListWithFilter,
       ),
     );
   }

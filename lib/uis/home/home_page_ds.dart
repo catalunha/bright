@@ -6,12 +6,12 @@ import 'package:bright/models/user_model.dart';
 
 class HomePageDS extends StatelessWidget {
   final UserModel userModel;
-  final Function(StudentFilter) onPushStudentListWithFilter;
+  // final Function(StudentFilter) onPushStudentListWithFilter;
 
   const HomePageDS({
     Key key,
     this.userModel,
-    this.onPushStudentListWithFilter,
+    // this.onPushStudentListWithFilter,
   }) : super(key: key);
   @override
   Widget build(BuildContext context) {

@@ -16,22 +16,22 @@ class MeetFilteringDS extends StatelessWidget with _MeetFilteringDSComponents {
       onSelected: (value) => onSelectFilter(value),
       itemBuilder: (context) => <PopupMenuItem<MeetFilter>>[
         PopupMenuItem<MeetFilter>(
-          value: MeetFilter.paid,
-          child: Row(
-            children: [
-              paidIcon,
-              SizedBox(width: 5),
-              Text(MeetFilter.paid.label),
-            ],
-          ),
-        ),
-        PopupMenuItem<MeetFilter>(
           value: MeetFilter.notpaid,
           child: Row(
             children: [
               notpaidIcon,
               SizedBox(width: 5),
               Text(MeetFilter.notpaid.label),
+            ],
+          ),
+        ),
+        PopupMenuItem<MeetFilter>(
+          value: MeetFilter.paid,
+          child: Row(
+            children: [
+              paidIcon,
+              SizedBox(width: 5),
+              Text(MeetFilter.paid.label),
             ],
           ),
         ),

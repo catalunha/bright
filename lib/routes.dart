@@ -8,14 +8,14 @@ import 'package:bright/states/app_state.dart';
 import 'package:bright/conectors/welcome.dart';
 
 class Routes {
-  static final home = '/';
+  static final welcome = '/';
   static final studentList = '/studentList';
   static final studentEdit = '/studentEdit';
   static final meetList = '/meetList';
   static final meetEdit = '/meetEdit';
 
   static final routes = {
-    home: (BuildContext context) => UserExceptionDialog<AppState>(
+    welcome: (BuildContext context) => UserExceptionDialog<AppState>(
           child: Welcome(),
         ),
     studentList: (BuildContext context) => StudentList(),

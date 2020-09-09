@@ -28,6 +28,7 @@ class MeetEditDS extends StatefulWidget {
 }
 
 class _MeetEditDSState extends State<MeetEditDS> {
+  GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
   String _topic;
   int _price;
@@ -142,21 +143,39 @@ class _MeetEditDSState extends State<MeetEditDS> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldState,
       appBar: AppBar(
         title:
             Text(widget.isAddOrUpdate ? 'Criar encontro' : 'Editar encontro'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(16),
+        padding: EdgeInsets.all(8),
         child: form(),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.cloud_upload),
         onPressed: () {
-          validateData();
+          bool liberated = true;
+          if (liberated) {
+            Duration difference = _end.difference(_start);
+            if (difference.isNegative) {
+              liberated = false;
+              showSnackBarHandler(
+                  context, 'Data e hora do fim antes do início.');
+            } else {
+              liberated = true;
+            }
+          }
+          if (liberated) {
+            validateData();
+          }
         },
       ),
     );
+  }
+
+  showSnackBarHandler(context, String msg) {
+    scaffoldState.currentState.showSnackBar(SnackBar(content: Text(msg)));
   }
 
   Widget form() {
@@ -181,7 +200,7 @@ class _MeetEditDSState extends State<MeetEditDS> {
           ),
           TextFormField(
             initialValue: widget.price == null ? '' : widget.price.toString(),
-            inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
+            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             keyboardType: TextInputType.number,
             maxLines: null,
             decoration: InputDecoration(

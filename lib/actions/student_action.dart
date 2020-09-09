@@ -119,20 +119,20 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     studentModel.description = description;
     studentModel.group = group;
     studentModel.active = true;
-    var docRef = await firestore
-        .collection(StudentModel.collection)
-        .where('code', isEqualTo: code)
-        .getDocuments();
-    bool doc = docRef.documents.length != 0;
-    if (doc) throw const UserException("Este estudante já foi cadastrado.");
+    // var docRef = await firestore
+    //     .collection(StudentModel.collection)
+    //     .where('code', isEqualTo: code)
+    //     .getDocuments();
+    // bool doc = docRef.documents.length != 0;
+    // if (doc) throw const UserException("Este estudante já foi cadastrado.");
     await firestore
         .collection(StudentModel.collection)
         .add(studentModel.toMap());
     return null;
   }
 
-  @override
-  Object wrapError(error) => UserException("ATENÇÃO:", cause: error);
+  // @override
+  // Object wrapError(error) => UserException("ATENÇÃO:", cause: error);
   @override
   void after() => dispatch(GetDocsStudentListAsyncStudentAction());
 }
