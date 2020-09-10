@@ -11,33 +11,29 @@ class ViewModel extends BaseModel<AppState> {
   List<StudentModel> studentList;
   Function(String) onEditStudentCurrent;
   Function(String) onEditMeet;
-  Function() onReport;
   ViewModel();
   ViewModel.build({
     @required this.waiting,
     @required this.studentList,
     @required this.onEditStudentCurrent,
     @required this.onEditMeet,
-    @required this.onReport,
   }) : super(equals: [
           waiting,
           studentList,
         ]);
   @override
   ViewModel fromStore() => ViewModel.build(
-      waiting: state.wait.isWaiting,
-      studentList: state.studentState.studentList,
-      onEditStudentCurrent: (String id) {
-        dispatch(SetStudentCurrentSyncStudentAction(id));
-        dispatch(NavigateAction.pushNamed(Routes.studentEdit));
-      },
-      onEditMeet: (String id) {
-        dispatch(SetStudentCurrentSyncStudentAction(id));
-        dispatch(NavigateAction.pushNamed(Routes.meetList));
-      },
-      onReport: () {
-        dispatch(ReportAsyncStudentAction());
-      });
+        waiting: state.wait.isWaiting,
+        studentList: state.studentState.studentList,
+        onEditStudentCurrent: (String id) {
+          dispatch(SetStudentCurrentSyncStudentAction(id));
+          dispatch(NavigateAction.pushNamed(Routes.studentEdit));
+        },
+        onEditMeet: (String id) {
+          dispatch(SetStudentCurrentSyncStudentAction(id));
+          dispatch(NavigateAction.pushNamed(Routes.meetList));
+        },
+      );
 }
 
 class StudentList extends StatelessWidget {
@@ -52,7 +48,6 @@ class StudentList extends StatelessWidget {
         studentList: viewModel.studentList,
         onEditStudentCurrent: viewModel.onEditStudentCurrent,
         onEditMeet: viewModel.onEditMeet,
-        onReport: viewModel.onReport,
       ),
     );
   }

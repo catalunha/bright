@@ -9,14 +9,12 @@ class StudentListDS extends StatelessWidget {
   final List<StudentModel> studentList;
   final Function(String) onEditStudentCurrent;
   final Function(String) onEditMeet;
-  final Function() onReport;
 
   const StudentListDS({
     Key key,
     this.studentList,
     this.onEditStudentCurrent,
     this.onEditMeet,
-    this.onReport,
     this.waiting,
   }) : super(key: key);
 
@@ -30,9 +28,9 @@ class StudentListDS extends StatelessWidget {
             actions: [
               StudentFiltering(),
               IconButton(
+                tooltip: 'Gerar relatório.',
                 icon: Icon(Icons.date_range),
                 onPressed: () {
-                  // onReport();
                   showDialog(
                     context: context,
                     builder: (context) => ReportByDate(),
