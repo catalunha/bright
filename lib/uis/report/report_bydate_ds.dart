@@ -22,9 +22,11 @@ class _ReportByDateDSState extends State<ReportByDateDS> {
   @override
   void initState() {
     super.initState();
-    _start = DateTime.now();
+    _start =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     // _startTime = TimeOfDay.now();
-    _end = DateTime.now();
+    _end =
+        DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
     // _endTime = TimeOfDay.now();
   }
 
@@ -113,7 +115,7 @@ class _ReportByDateDSState extends State<ReportByDateDS> {
           child: ListView(
             children: [
               ListTile(
-                title: Text('${DateFormat('yyyy-MM-dd').format(_start)}'),
+                title: Text('${DateFormat('yyyy-MM-dd 00:00').format(_start)}'),
                 subtitle: Text('Inicio do relatório'),
                 trailing: Icon(Icons.date_range),
                 onTap: () {
@@ -132,7 +134,7 @@ class _ReportByDateDSState extends State<ReportByDateDS> {
                 },
               ),
               ListTile(
-                title: Text('${DateFormat('yyyy-MM-dd').format(_end)}'),
+                title: Text('${DateFormat('yyyy-MM-dd 00:00').format(_end)}'),
                 subtitle: Text('Fim do relatório'),
                 trailing: Icon(Icons.date_range),
                 onTap: () {
@@ -151,8 +153,8 @@ class _ReportByDateDSState extends State<ReportByDateDS> {
                 },
               ),
               ListTile(
-                title: Text('Gerar relatório...'),
-                trailing: Icon(Icons.line_style),
+                title: Text('Gerar relatório para área de transferência.'),
+                trailing: Icon(Icons.copy),
                 onTap: () {
                   widget.onReport(_start, _end);
                 },

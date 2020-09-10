@@ -203,12 +203,12 @@ class ReportAsyncStudentAction extends ReduxAction<AppState> {
   ReportAsyncStudentAction({this.start, this.end});
   @override
   Future<AppState> reduce() async {
-    print('ReportAsyncStudentAction...');
+    print('ReportAsyncStudentAction... $start $end');
     Firestore firestore = Firestore.instance;
     Query collRef;
     collRef = firestore
         .collection(MeetModel.collection)
-        // .where('userRef.id', isEqualTo: state.loggedState.userModelLogged.id)
+        .where('userRef.id', isEqualTo: state.loggedState.userModelLogged.id)
         .where('start', isGreaterThanOrEqualTo: start)
         .where('start', isLessThanOrEqualTo: end);
 
