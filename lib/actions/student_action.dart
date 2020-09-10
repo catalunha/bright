@@ -219,11 +219,14 @@ class ReportAsyncStudentAction extends ReduxAction<AppState> {
         .toList();
 
     listDocs.sort((a, b) => a.start.compareTo(b.start));
-    String _data = 'Início|Duração|Investimento|Empresa|Turma|Aluno|Conteúdo';
+    String _data =
+        'Data|Hora|Duração|Investimento|Empresa|Turma|Aluno|Conteúdo';
     listDocs.forEach((meet) {
       _data = _data +
           '\n' +
-          '${DateFormat('dd-MM-yyyy kk:mm').format(meet.start)}' +
+          '${DateFormat('dd-MM-yyyy').format(meet.start)}' +
+          '|' +
+          '${DateFormat('kk:mm').format(meet.start)}' +
           '|' +
           '${(meet.end.difference(meet.start)).toString().split('.').first.padLeft(8, "0").substring(0, 6).replaceFirst(':', 'h').replaceFirst(':', 'm')}' +
           '|' +
