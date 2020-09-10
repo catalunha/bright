@@ -145,6 +145,9 @@ class UpdateDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
     Firestore firestore = Firestore.instance;
     MeetModel meetModel = MeetModel(state.meetState.meetCurrent.id)
         .fromMap(state.meetState.meetCurrent.toMap());
+    meetModel.studentRef = StudentModel(state.studentState.studentCurrent.id)
+        .fromMap(state.studentState.studentCurrent.toMapRef());
+    meetModel.topic = topic;
     meetModel.topic = topic;
     meetModel.price = price;
     meetModel.start = start;

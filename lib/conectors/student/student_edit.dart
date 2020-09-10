@@ -11,14 +11,15 @@ class ViewModel extends BaseModel<AppState> {
   String phone;
   String urlProgram;
   String urlDiary;
+  String company;
   String group;
   String description;
   bool active;
   bool isAddOrUpdate;
-  Function(String, String, String, String, String, String, String, String)
-      onAdd;
-  Function(String, String, String, String, String, String, String, String, bool)
-      onUpdate;
+  Function(String, String, String, String, String, String, String, String,
+      String) onAdd;
+  Function(String, String, String, String, String, String, String, String,
+      String, bool) onUpdate;
   ViewModel();
   ViewModel.build({
     @required this.code,
@@ -27,6 +28,7 @@ class ViewModel extends BaseModel<AppState> {
     @required this.phone,
     @required this.urlProgram,
     @required this.urlDiary,
+    @required this.company,
     @required this.group,
     @required this.description,
     @required this.active,
@@ -40,6 +42,7 @@ class ViewModel extends BaseModel<AppState> {
           phone,
           urlProgram,
           urlDiary,
+          company,
           group,
           description,
           active,
@@ -54,6 +57,7 @@ class ViewModel extends BaseModel<AppState> {
         phone: state.studentState.studentCurrent.phone,
         urlProgram: state.studentState.studentCurrent.urlProgram,
         urlDiary: state.studentState.studentCurrent.urlDiary,
+        company: state.studentState.studentCurrent.company,
         group: state.studentState.studentCurrent.group,
         description: state.studentState.studentCurrent.description,
         active: state.studentState.studentCurrent?.active ?? false,
@@ -63,6 +67,7 @@ class ViewModel extends BaseModel<AppState> {
             String phone,
             String urlProgram,
             String urlDiary,
+            String company,
             String group,
             String description) {
           dispatch(AddDocStudentCurrentAsyncStudentAction(
@@ -72,6 +77,7 @@ class ViewModel extends BaseModel<AppState> {
             phone: phone,
             urlProgram: urlProgram,
             urlDiary: urlDiary,
+            company: company,
             group: group,
             description: description,
           ));
@@ -83,6 +89,7 @@ class ViewModel extends BaseModel<AppState> {
             String phone,
             String urlProgram,
             String urlDiary,
+            String company,
             String group,
             String description,
             bool active) {
@@ -93,6 +100,7 @@ class ViewModel extends BaseModel<AppState> {
             phone: phone,
             urlProgram: urlProgram,
             urlDiary: urlDiary,
+            company: company,
             group: group,
             description: description,
             active: active,
@@ -116,6 +124,7 @@ class StudentEdit extends StatelessWidget {
         phone: viewModel.phone,
         urlProgram: viewModel.urlProgram,
         urlDiary: viewModel.urlDiary,
+        company: viewModel.company,
         group: viewModel.group,
         description: viewModel.description,
         active: viewModel.active,

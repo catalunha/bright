@@ -7,15 +7,15 @@ class StudentEditDS extends StatefulWidget {
   final String phone;
   final String urlProgram;
   final String urlDiary;
+  final String company;
   final String group;
   final String description;
   final bool active;
   final bool isAddOrUpdate;
-  final Function(String, String, String, String, String, String, String, String)
-      onAdd;
-  final Function(
-          String, String, String, String, String, String, String, String, bool)
-      onUpdate;
+  final Function(String, String, String, String, String, String, String, String,
+      String) onAdd;
+  final Function(String, String, String, String, String, String, String, String,
+      String, bool) onUpdate;
 
   const StudentEditDS({
     Key key,
@@ -31,6 +31,7 @@ class StudentEditDS extends StatefulWidget {
     this.urlDiary,
     this.active,
     this.group,
+    this.company,
   }) : super(key: key);
   @override
   _StudentEditDSState createState() => _StudentEditDSState();
@@ -44,6 +45,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
   String _phone;
   String _urlProgram;
   String _urlDiary;
+  String _company;
   String _group;
   String _description;
   bool _active;
@@ -52,9 +54,9 @@ class _StudentEditDSState extends State<StudentEditDS> {
       formKey.currentState.save();
       widget.isAddOrUpdate
           ? widget.onAdd(_code, _name, _email, _phone, _urlProgram, _urlDiary,
-              _group, _description)
+              _company, _group, _description)
           : widget.onUpdate(_code, _name, _email, _phone, _urlProgram,
-              _urlDiary, _group, _description, _active);
+              _urlDiary, _company, _group, _description, _active);
     } else {
       setState(() {});
     }
@@ -94,7 +96,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.name,
             decoration: InputDecoration(
-              labelText: 'Nome do estudante*',
+              labelText: 'Nome *',
             ),
             onSaved: (newValue) => _name = newValue,
             validator: (value) {
@@ -107,7 +109,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.email,
             decoration: InputDecoration(
-              labelText: 'Email do estudante*',
+              labelText: 'Email *',
             ),
             onSaved: (newValue) => _email = newValue,
             validator: (value) {
@@ -120,7 +122,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.phone,
             decoration: InputDecoration(
-              labelText: 'Telefone do estudante*',
+              labelText: 'Telefone *',
             ),
             onSaved: (newValue) => _phone = newValue,
             validator: (value) {
@@ -131,9 +133,35 @@ class _StudentEditDSState extends State<StudentEditDS> {
             },
           ),
           TextFormField(
+            initialValue: widget.company,
+            decoration: InputDecoration(
+              labelText: 'Empresa *',
+            ),
+            onSaved: (newValue) => _company = newValue,
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Informe o que se pede.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            initialValue: widget.group,
+            decoration: InputDecoration(
+              labelText: 'Classe *',
+            ),
+            onSaved: (newValue) => _group = newValue,
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Informe o que se pede.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
             initialValue: widget.code,
             decoration: InputDecoration(
-              labelText: 'Codigo do estudante',
+              labelText: 'Codigo',
             ),
             onSaved: (newValue) => _code = newValue,
             // validator: (value) {
@@ -146,7 +174,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.urlProgram,
             decoration: InputDecoration(
-              labelText: 'Link para programa do estudante',
+              labelText: 'Link para programa',
             ),
             onSaved: (newValue) => _urlProgram = newValue,
             // validator: (value) {
@@ -159,24 +187,9 @@ class _StudentEditDSState extends State<StudentEditDS> {
           TextFormField(
             initialValue: widget.urlDiary,
             decoration: InputDecoration(
-              labelText: 'Link para diário do estudante',
+              labelText: 'Link para diário',
             ),
             onSaved: (newValue) => _urlDiary = newValue,
-            // validator: (value) {
-            //   if (value.isEmpty) {
-            //     return 'Informe o que se pede.';
-            //   }
-            //   return null;
-            // },
-          ),
-          TextFormField(
-            initialValue: widget.group,
-            keyboardType: TextInputType.multiline,
-            maxLines: null,
-            decoration: InputDecoration(
-              labelText: 'Classe do estudante',
-            ),
-            onSaved: (newValue) => _group = newValue,
             // validator: (value) {
             //   if (value.isEmpty) {
             //     return 'Informe o que se pede.';
@@ -189,7 +202,7 @@ class _StudentEditDSState extends State<StudentEditDS> {
             keyboardType: TextInputType.multiline,
             maxLines: null,
             decoration: InputDecoration(
-              labelText: 'Descrição do estudante',
+              labelText: 'Descrição',
             ),
             onSaved: (newValue) => _description = newValue,
             // validator: (value) {

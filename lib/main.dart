@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:bright/actions/logged_action.dart';
 import 'package:bright/routes.dart';
 import 'package:bright/states/app_state.dart';
-import 'package:bright/states/types_states.dart';
 
 Store<AppState> _store = Store<AppState>(
   initialState: AppState.initialState(),

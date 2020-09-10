@@ -11,6 +11,7 @@ class StudentModel extends FirestoreModel {
   String phone;
   String urlProgram;
   String urlDiary;
+  String company;
   String group;
   String description;
   bool active;
@@ -25,6 +26,7 @@ class StudentModel extends FirestoreModel {
     this.name,
     this.urlProgram,
     this.urlDiary,
+    this.company,
     this.group,
     this.description,
     this.active,
@@ -43,6 +45,7 @@ class StudentModel extends FirestoreModel {
       if (map.containsKey('phone')) phone = map['phone'];
       if (map.containsKey('urlProgram')) urlProgram = map['urlProgram'];
       if (map.containsKey('urlDiary')) urlDiary = map['urlDiary'];
+      if (map.containsKey('company')) company = map['company'];
       if (map.containsKey('group')) group = map['group'];
       if (map.containsKey('description')) description = map['description'];
       if (map.containsKey('active')) active = map['active'];
@@ -62,6 +65,7 @@ class StudentModel extends FirestoreModel {
     if (phone != null) data['phone'] = this.phone;
     if (urlProgram != null) data['urlProgram'] = this.urlProgram;
     if (urlDiary != null) data['urlDiary'] = this.urlDiary;
+    if (company != null) data['company'] = this.company;
     if (group != null) data['group'] = this.group;
     if (description != null) data['description'] = this.description;
     if (active != null) data['active'] = this.active;
@@ -71,18 +75,21 @@ class StudentModel extends FirestoreModel {
 
   Map<String, dynamic> toMapRef() {
     final Map<String, dynamic> data = Map<String, dynamic>();
+    if (id != null) data['id'] = this.id;
     if (code != null) data['code'] = this.code;
     if (name != null) data['name'] = this.name;
-    data.addAll({'id': this.id});
+    if (company != null) data['company'] = this.company;
+    if (group != null) data['group'] = this.group;
     return data;
   }
 
   @override
   String toString() {
     String _return = '';
+    _return = _return + 'id: $id';
     _return = _return + 'Email: $email';
     _return = _return + '\nTel.: $phone';
-    // _return = _return + '\nClasse: $group';
+    _return = _return + '\nC/C: $company - $group';
     // _return = _return + '\nCódigo: $code';
     return _return;
   }

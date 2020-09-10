@@ -3,7 +3,11 @@ import 'package:bright/models/student_model.dart';
 import 'package:bright/models/user_model.dart';
 import 'package:bright/states/app_state.dart';
 import 'package:bright/states/types_states.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
+
+import '../models/meet_model.dart';
 
 // +++ Actions Sync
 class SetStudentCurrentSyncStudentAction extends ReduxAction<AppState> {
@@ -88,6 +92,7 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
   final String phone;
   final String urlProgram;
   final String urlDiary;
+  final String company;
   final String group;
   final String description;
 
@@ -98,6 +103,7 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     this.phone,
     this.urlProgram,
     this.urlDiary,
+    this.company,
     this.group,
     this.description,
   });
@@ -117,6 +123,7 @@ class AddDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     studentModel.urlProgram = urlProgram;
     studentModel.urlDiary = urlDiary;
     studentModel.description = description;
+    studentModel.company = company;
     studentModel.group = group;
     studentModel.active = true;
     // var docRef = await firestore
@@ -144,6 +151,7 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
   final String phone;
   final String urlProgram;
   final String urlDiary;
+  final String company;
   final String group;
   final String description;
   final bool active;
@@ -155,6 +163,7 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     this.phone,
     this.urlProgram,
     this.urlDiary,
+    this.company,
     this.group,
     this.description,
     this.active,
@@ -172,6 +181,7 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
     studentModel.phone = phone;
     studentModel.urlProgram = urlProgram;
     studentModel.urlDiary = urlDiary;
+    studentModel.company = company;
     studentModel.group = group;
     studentModel.description = description;
     studentModel.active = active;
@@ -184,4 +194,64 @@ class UpdateDocStudentCurrentAsyncStudentAction extends ReduxAction<AppState> {
 
   @override
   void after() => dispatch(GetDocsStudentListAsyncStudentAction());
+}
+
+class ReportAsyncStudentAction extends ReduxAction<AppState> {
+  final dynamic start;
+  final dynamic end;
+
+  ReportAsyncStudentAction({this.start, this.end});
+  @override
+  Future<AppState> reduce() async {
+    print('ReportAsyncStudentAction...');
+    Firestore firestore = Firestore.instance;
+    Query collRef;
+    collRef = firestore
+        .collection(MeetModel.collection)
+        // .where('userRef.id', isEqualTo: state.loggedState.userModelLogged.id)
+        .where('start', isGreaterThanOrEqualTo: start)
+        .where('start', isLessThanOrEqualTo: end);
+
+    final docsSnap = await collRef.getDocuments();
+
+    final listDocs = docsSnap.documents
+        .map((docSnap) => MeetModel(docSnap.documentID).fromMap(docSnap.data))
+        .toList();
+
+    listDocs.sort((a, b) => a.start.compareTo(b.start));
+    String _data = 'Início|Duração|Investimento|Empresa|Turma|Aluno|Conteúdo';
+    listDocs.forEach((meet) {
+      _data = _data +
+          '\n' +
+          '${DateFormat('dd-MM-yyyy kk:mm').format(meet.start)}' +
+          '|' +
+          '${(meet.end.difference(meet.start)).toString().split('.').first.padLeft(8, "0").substring(0, 6).replaceFirst(':', 'h').replaceFirst(':', 'm')}' +
+          '|' +
+          (meet.paid
+              ? 'R\$ ${(meet.price / 100).toStringAsFixed(2)}'
+              : '*R\$ ${(meet.price / 100).toStringAsFixed(2)}') +
+          '|' +
+          '${meet.studentRef.company}' +
+          '|' +
+          '${meet.studentRef.group}' +
+          '|' +
+          '${meet.studentRef.name}' +
+          '|' +
+          '"${meet.topic}"';
+    });
+
+    FlutterClipboard.copy(_data).then((value) {
+      print('copied');
+      // scaffoldState.currentState.showSnackBar(SnackBar(
+      //     content:
+      //         Text('Aula copiada para texto. CTRL-c concluído.')));
+    });
+
+    return null;
+  }
+
+  @override
+  void before() => dispatch(WaitAction.add(this));
+  @override
+  void after() => dispatch(WaitAction.remove(this));
 }
