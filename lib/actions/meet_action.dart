@@ -91,13 +91,15 @@ class GetDocsMeetListAsyncMeetAction extends ReduxAction<AppState> {
 }
 
 class AddDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
-  final String topic;
+  final String classAct;
+  final String homeAct;
   final int price;
   final dynamic start;
   final dynamic end;
 
   AddDocMeetCurrentAsyncMeetAction({
-    this.topic,
+    this.classAct,
+    this.homeAct,
     this.price,
     this.start,
     this.end,
@@ -112,7 +114,8 @@ class AddDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
         .fromMap(state.loggedState.userModelLogged.toMapRef());
     meetModel.studentRef = StudentModel(state.studentState.studentCurrent.id)
         .fromMap(state.studentState.studentCurrent.toMapRef());
-    meetModel.topic = topic;
+    meetModel.classAct = classAct;
+    meetModel.homeAct = homeAct;
     meetModel.price = price;
     meetModel.start = start;
     meetModel.end = end;
@@ -126,14 +129,16 @@ class AddDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
 }
 
 class UpdateDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
-  final String topic;
+  final String classAct;
+  final String homeAct;
   final int price;
   final dynamic start;
   final dynamic end;
   final bool paid;
 
   UpdateDocMeetCurrentAsyncMeetAction({
-    this.topic,
+    this.classAct,
+    this.homeAct,
     this.price,
     this.start,
     this.end,
@@ -147,8 +152,8 @@ class UpdateDocMeetCurrentAsyncMeetAction extends ReduxAction<AppState> {
         .fromMap(state.meetState.meetCurrent.toMap());
     meetModel.studentRef = StudentModel(state.studentState.studentCurrent.id)
         .fromMap(state.studentState.studentCurrent.toMapRef());
-    meetModel.topic = topic;
-    meetModel.topic = topic;
+    meetModel.classAct = classAct;
+    meetModel.homeAct = homeAct;
     meetModel.price = price;
     meetModel.start = start;
     meetModel.end = end;

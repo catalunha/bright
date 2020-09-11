@@ -64,16 +64,21 @@ class MeetListDS extends StatelessWidget {
                       );
                     },
                   ),
-                  title: Text('${meet.topic}'),
+                  title: Text(
+                      '${meet.labelTo("start")} com ${meet.labelTo("betweenStartToEnd")}\nInvestimento: ${meet.labelTo("price")}'),
                   subtitle: Text(
-                      'Em ${meet.toListString()[1]} com ${meet.toListString()[2]}\nInvestimento: ${meet.toListString()[3]}'),
+                      'Atividades em sala:\n${meet.classAct}\nAtividades para casa:\n${meet.homeAct}'),
                   onTap: () {
                     onEditMeetCurrent(meet.id);
                   },
                   onLongPress: () {
-                    FlutterClipboard.copy(
-                            'Conteúdo desenvolvido em ${meet.toListString()[1]} com duração de ${meet.toListString()[2]}\n${meet.toListString()[0]}\nInvestimento: ${meet.toListString()[3]}')
-                        .then((value) {
+                    String _copy = '';
+                    _copy = _copy +
+                        'Encontro de ${meet.labelTo("start")} com duração de ${meet.labelTo("betweenStartToEnd")}';
+                    _copy = _copy + '\nInvestimento: ${meet.labelTo("price")}';
+                    _copy = _copy + '\nAtividades em sala:\n${meet.classAct}';
+                    _copy = _copy + '\nAtividades para casa:\n${meet.homeAct}';
+                    FlutterClipboard.copy(_copy).then((value) {
                       print('copied');
                       // scaffoldState.currentState.showSnackBar(SnackBar(
                       //     content:

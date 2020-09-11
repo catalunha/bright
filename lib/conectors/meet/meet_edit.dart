@@ -5,17 +5,19 @@ import 'package:bright/uis/meet/meet_edit_ds.dart';
 import 'package:flutter/material.dart';
 
 class ViewModel extends BaseModel<AppState> {
-  String topic;
+  String classAct;
+  String homeAct;
   int price;
   dynamic start;
   dynamic end;
   bool paid;
   bool isAddOrUpdate;
-  Function(String, int, dynamic, dynamic) onAdd;
-  Function(String, int, dynamic, dynamic, bool) onUpdate;
+  Function(String, String, int, dynamic, dynamic) onAdd;
+  Function(String, String, int, dynamic, dynamic, bool) onUpdate;
   ViewModel();
   ViewModel.build({
-    @required this.topic,
+    @required this.classAct,
+    @required this.homeAct,
     @required this.price,
     @required this.start,
     @required this.end,
@@ -24,7 +26,8 @@ class ViewModel extends BaseModel<AppState> {
     @required this.onAdd,
     @required this.onUpdate,
   }) : super(equals: [
-          topic,
+          classAct,
+          homeAct,
           price,
           start,
           end,
@@ -34,29 +37,33 @@ class ViewModel extends BaseModel<AppState> {
   @override
   ViewModel fromStore() => ViewModel.build(
         isAddOrUpdate: state.meetState.meetCurrent.id == null,
-        topic: state.meetState.meetCurrent.topic,
+        classAct: state.meetState.meetCurrent.classAct,
+        homeAct: state.meetState.meetCurrent.homeAct,
         price: state.meetState.meetCurrent.price,
         start: state.meetState.meetCurrent.start,
         end: state.meetState.meetCurrent.end,
         paid: state.meetState.meetCurrent?.paid ?? false,
         onAdd: (
-          String topic,
+          String classAct,
+          String homeAct,
           int price,
           dynamic start,
           dynamic end,
         ) {
           dispatch(AddDocMeetCurrentAsyncMeetAction(
-            topic: topic,
+            classAct: classAct,
+            homeAct: homeAct,
             price: price,
             start: start,
             end: end,
           ));
           dispatch(NavigateAction.pop());
         },
-        onUpdate:
-            (String topic, int price, dynamic start, dynamic end, bool paid) {
+        onUpdate: (String classAct, String homeAct, int price, dynamic start,
+            dynamic end, bool paid) {
           dispatch(UpdateDocMeetCurrentAsyncMeetAction(
-            topic: topic,
+            classAct: classAct,
+            homeAct: homeAct,
             price: price,
             start: start,
             end: end,
@@ -75,7 +82,8 @@ class MeetEdit extends StatelessWidget {
       model: ViewModel(),
       builder: (context, viewModel) => MeetEditDS(
         isAddOrUpdate: viewModel.isAddOrUpdate,
-        topic: viewModel.topic,
+        classAct: viewModel.classAct,
+        homeAct: viewModel.homeAct,
         price: viewModel.price,
         start: viewModel.start,
         end: viewModel.end,

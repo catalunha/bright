@@ -8,17 +8,20 @@ class MeetModel extends FirestoreModel {
 
   UserModel userRef;
   StudentModel studentRef;
-  String topic;
-  int price;
   dynamic start;
   dynamic end;
+  int price;
+  String classAct;
+  String homeAct;
+
   bool paid;
 
   MeetModel(
     String id, {
     this.userRef,
     this.studentRef,
-    this.topic,
+    this.classAct,
+    this.homeAct,
     this.price,
     this.start,
     this.end,
@@ -34,7 +37,8 @@ class MeetModel extends FirestoreModel {
       studentRef = map.containsKey('studentRef') && map['studentRef'] != null
           ? StudentModel(map['studentRef']['id']).fromMap(map['studentRef'])
           : null;
-      if (map.containsKey('topic')) topic = map['topic'];
+      if (map.containsKey('classAct')) classAct = map['classAct'];
+      if (map.containsKey('homeAct')) homeAct = map['homeAct'];
       if (map.containsKey('price')) price = map['price'];
       start = map.containsKey('start') && map['start'] != null
           ? DateTime.fromMillisecondsSinceEpoch(
@@ -58,7 +62,8 @@ class MeetModel extends FirestoreModel {
     if (this.studentRef != null) {
       data['studentRef'] = this.studentRef.toMapRef();
     }
-    if (topic != null) data['topic'] = this.topic;
+    if (classAct != null) data['classAct'] = this.classAct;
+    if (homeAct != null) data['homeAct'] = this.homeAct;
     if (price != null) data['price'] = this.price;
     data['start'] = this.start;
     data['end'] = this.end;
@@ -67,13 +72,24 @@ class MeetModel extends FirestoreModel {
     return data;
   }
 
-  List<String> toListString() {
-    List<String> _return = [];
-    _return.add('$topic');
-    _return.add('${DateFormat('dd-MM-yyyy kk:mm').format(start)}');
-    _return.add(
-        '${(end.difference(start)).toString().split('.').first.padLeft(8, "0").substring(0, 6).replaceFirst(':', 'h').replaceFirst(':', 'm')}');
-    _return.add('R\$ ${(price / 100).toStringAsFixed(2)}');
+  String labelTo(String field) {
+    String _return = '';
+    if (field == 'start') {
+      _return = '${DateFormat('dd-MM-yyyy kk:mm').format(start)}';
+    }
+    if (field == 'startDate') {
+      _return = '${DateFormat('dd-MM-yyyy').format(start)}';
+    }
+    if (field == 'startTime') {
+      _return = '${DateFormat('kk:mm').format(start)}';
+    }
+    if (field == 'betweenStartToEnd') {
+      _return =
+          '${(end.difference(start)).toString().split('.').first.padLeft(8, "0").substring(0, 6).replaceFirst(':', 'h').replaceFirst(':', 'm')}';
+    }
+    if (field == 'price') {
+      _return = 'R\$ ${(price / 100).toStringAsFixed(2)}';
+    }
     return _return;
   }
 }

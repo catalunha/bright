@@ -220,19 +220,19 @@ class ReportAsyncStudentAction extends ReduxAction<AppState> {
 
     listDocs.sort((a, b) => a.start.compareTo(b.start));
     String _data =
-        'Data|Hora|Duração|Investimento|Empresa|Turma|Aluno|Conteúdo';
+        'Data|Hora|Duração|Investimento|Empresa|Turma|Aluno|Atividades em sala|Atividades para casa';
     listDocs.forEach((meet) {
       _data = _data +
           '\n' +
-          '${DateFormat('dd-MM-yyyy').format(meet.start)}' +
+          '${meet.labelTo("startDate")}' +
           '|' +
-          '${DateFormat('kk:mm').format(meet.start)}' +
+          '${meet.labelTo("startTime")}' +
           '|' +
-          '${(meet.end.difference(meet.start)).toString().split('.').first.padLeft(8, "0").substring(0, 6).replaceFirst(':', 'h').replaceFirst(':', 'm')}' +
+          '${meet.labelTo("betweenStartToEnd")}' +
           '|' +
           (meet.paid
-              ? 'R\$ ${(meet.price / 100).toStringAsFixed(2)}'
-              : '*R\$ ${(meet.price / 100).toStringAsFixed(2)}') +
+              ? 'R\$ ${meet.labelTo("price")}'
+              : '*R\$ ${meet.labelTo("price")}') +
           '|' +
           '${meet.studentRef.company}' +
           '|' +
@@ -240,14 +240,13 @@ class ReportAsyncStudentAction extends ReduxAction<AppState> {
           '|' +
           '${meet.studentRef.name}' +
           '|' +
-          '"${meet.topic}"';
+          '"${meet.classAct}"' +
+          '|' +
+          '"${meet.homeAct}"';
     });
 
     FlutterClipboard.copy(_data).then((value) {
       print('copied');
-      // scaffoldState.currentState.showSnackBar(SnackBar(
-      //     content:
-      //         Text('Aula copiada para texto. CTRL-c concluído.')));
     });
 
     return null;

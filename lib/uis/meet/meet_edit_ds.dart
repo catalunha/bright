@@ -3,18 +3,20 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 class MeetEditDS extends StatefulWidget {
-  final String topic;
+  final String classAct;
+  final String homeAct;
   final int price;
   final dynamic start;
   final dynamic end;
   final bool paid;
   final bool isAddOrUpdate;
-  final Function(String, int, dynamic, dynamic) onAdd;
-  final Function(String, int, dynamic, dynamic, bool) onUpdate;
+  final Function(String, String, int, dynamic, dynamic) onAdd;
+  final Function(String, String, int, dynamic, dynamic, bool) onUpdate;
 
   const MeetEditDS({
     Key key,
-    this.topic,
+    this.classAct,
+    this.homeAct,
     this.price,
     this.start,
     this.end,
@@ -30,7 +32,8 @@ class MeetEditDS extends StatefulWidget {
 class _MeetEditDSState extends State<MeetEditDS> {
   GlobalKey<ScaffoldState> scaffoldState = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
-  String _topic;
+  String _classAct;
+  String _homeAct;
   int _price;
   DateTime _start;
   TimeOfDay _startTime;
@@ -41,8 +44,8 @@ class _MeetEditDSState extends State<MeetEditDS> {
     if (formKey.currentState.validate()) {
       formKey.currentState.save();
       widget.isAddOrUpdate
-          ? widget.onAdd(_topic, _price, _start, _end)
-          : widget.onUpdate(_topic, _price, _start, _end, _paid);
+          ? widget.onAdd(_classAct, _homeAct, _price, _start, _end)
+          : widget.onUpdate(_classAct, _homeAct, _price, _start, _end, _paid);
     } else {
       setState(() {});
     }
@@ -184,13 +187,28 @@ class _MeetEditDSState extends State<MeetEditDS> {
       child: ListView(
         children: [
           TextFormField(
-            initialValue: widget.topic,
+            initialValue: widget.classAct,
             keyboardType: TextInputType.multiline,
             maxLines: null,
             decoration: InputDecoration(
-              labelText: 'Assunto deste encontro',
+              labelText: 'Atividades em sala',
             ),
-            onSaved: (newValue) => _topic = newValue,
+            onSaved: (newValue) => _classAct = newValue,
+            validator: (value) {
+              if (value.isEmpty) {
+                return 'Informe o que se pede.';
+              }
+              return null;
+            },
+          ),
+          TextFormField(
+            initialValue: widget.homeAct,
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            decoration: InputDecoration(
+              labelText: 'Atividades de casa',
+            ),
+            onSaved: (newValue) => _homeAct = newValue,
             validator: (value) {
               if (value.isEmpty) {
                 return 'Informe o que se pede.';
