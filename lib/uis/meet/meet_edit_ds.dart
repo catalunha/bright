@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
 
 class MeetEditDS extends StatefulWidget {
   final String classAct;
@@ -36,9 +36,9 @@ class _MeetEditDSState extends State<MeetEditDS> {
   String _homeAct;
   int _price;
   DateTime _start;
-  TimeOfDay _startTime;
+  // TimeOfDay _startTime;
   DateTime _end;
-  TimeOfDay _endTime;
+  // TimeOfDay _endTime;
   bool _paid;
   void validateData() {
     if (formKey.currentState.validate()) {
@@ -55,93 +55,93 @@ class _MeetEditDSState extends State<MeetEditDS> {
   void initState() {
     super.initState();
     _paid = widget.paid;
-    // _price = widget.price ?? 0;
+
+    _price = widget.price ?? 0;
     _start = widget.start != null ? widget.start : DateTime.now();
-    _startTime = widget.start != null
-        ? TimeOfDay.fromDateTime(widget.start)
-        : TimeOfDay.now();
+    //     ? TimeOfDay.fromDateTime(widget.start)
+    //     : TimeOfDay.now();
 
     _end = widget.end != null ? widget.end : DateTime.now();
-    _endTime = widget.start != null
-        ? TimeOfDay.fromDateTime(widget.end)
-        : TimeOfDay.now();
+    // _endTime = widget.start != null
+    //     ? TimeOfDay.fromDateTime(widget.end)
+    //     : TimeOfDay.now();
   }
 
-  Future<void> onStartDate(context) async {
-    final DateTime showDatePickerStart = await showDatePicker(
-      context: context,
-      initialDate: _start,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2025),
-      helpText: 'Data de inicio',
-      confirmText: 'Ok',
-      cancelText: 'Cancelar',
-    );
-    if (showDatePickerStart != null && showDatePickerStart != _start) {
-      setState(() {
-        _start = showDatePickerStart;
-      });
-    }
-  }
+  // Future<void> onStartDate(context) async {
+  //   final DateTime showDatePickerStart = await showDatePicker(
+  //     context: context,
+  //     initialDate: _start,
+  //     firstDate: DateTime(2020),
+  //     lastDate: DateTime(2025),
+  //     helpText: 'Data de inicio',
+  //     confirmText: 'Ok',
+  //     cancelText: 'Cancelar',
+  //   );
+  //   if (showDatePickerStart != null && showDatePickerStart != _start) {
+  //     setState(() {
+  //       _start = showDatePickerStart;
+  //     });
+  //   }
+  // }
 
-  Future<void> onStartTime(context) async {
-    TimeOfDay showTimePickerStart = await showTimePicker(
-      initialTime: _startTime,
-      context: context,
-      helpText: 'Horário de inicio',
-      confirmText: 'Ok',
-      cancelText: 'Cancelar',
-      builder: (BuildContext context, Widget child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child,
-        );
-      },
-    );
-    if (showTimePickerStart != null) {
-      setState(() {
-        _startTime = showTimePickerStart;
-      });
-    }
-  }
+  // Future<void> onStartTime(context) async {
+  //   TimeOfDay showTimePickerStart = await showTimePicker(
+  //     initialTime: _startTime,
+  //     context: context,
+  //     helpText: 'Horário de inicio',
+  //     confirmText: 'Ok',
+  //     cancelText: 'Cancelar',
+  //     builder: (BuildContext context, Widget child) {
+  //       return MediaQuery(
+  //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+  //         child: child,
+  //       );
+  //     },
+  //   );
+  //   if (showTimePickerStart != null) {
+  //     setState(() {
+  //       _startTime = showTimePickerStart;
+  //     });
+  //   }
+  // }
 
-  Future<void> onEndDate(context) async {
-    final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: _end,
-      firstDate: DateTime(2020),
-      lastDate: DateTime(2025),
-      helpText: 'Data de inicio',
-      confirmText: 'Ok',
-      cancelText: 'Cancelar',
-    );
-    if (picked != null && picked != _end) {
-      setState(() {
-        _end = picked;
-      });
-    }
-  }
+  // Future<void> onEndDate(context) async {
+  //   final DateTime picked = await showDatePicker(
+  //     context: context,
+  //     initialDate: _end,
+  //     firstDate: DateTime(2020),
+  //     lastDate: DateTime(2025),
+  //     helpText: 'Data de inicio',
+  //     confirmText: 'Ok',
+  //     cancelText: 'Cancelar',
+  //   );
+  //   if (picked != null && picked != _end) {
+  //     setState(() {
+  //       _end = picked;
+  //     });
+  //   }
+  // }
 
-  Future<void> onEndTime(context) async {
-    TimeOfDay showTimePickerEnd = await showTimePicker(
-      initialTime: _endTime,
-      context: context,
-      helpText: 'Horário de inicio',
-      confirmText: 'Ok',
-      cancelText: 'Cancelar',
-      builder: (BuildContext context, Widget child) {
-        return MediaQuery(
-          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-          child: child,
-        );
-      },
-    );
-    if (showTimePickerEnd != null) {
-      setState(() {
-        _endTime = showTimePickerEnd;
-      });
-    }
-  }
+  // Future<void> onEndTime(context) async {
+  //   TimeOfDay showTimePickerEnd = await showTimePicker(
+  //     initialTime: _endTime,
+  //     context: context,
+  //     helpText: 'Horário de inicio',
+  //     confirmText: 'Ok',
+  //     cancelText: 'Cancelar',
+  //     builder: (BuildContext context, Widget child) {
+  //       return MediaQuery(
+  //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+  //         child: child,
+  //       );
+  //     },
+  //   );
+  //   if (showTimePickerEnd != null) {
+  //     setState(() {
+  //       _endTime = showTimePickerEnd;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -232,40 +232,76 @@ class _MeetEditDSState extends State<MeetEditDS> {
               return null;
             },
           ),
-          ListTile(
-            title: Text('${DateFormat('yyyy-MM-dd HH:mm').format(_start)}'),
-            subtitle: Text('Inicio do encontro'),
-            trailing: Icon(Icons.date_range),
-            onTap: () {
-              onStartDate(context)
-                  .then((value) => onStartTime(context).then((value) {
-                        _start = DateTime(
-                          _start.year,
-                          _start.month,
-                          _start.day,
-                          _startTime.hour,
-                          _startTime.minute,
-                        );
-                      }));
-            },
+          Text('Inicio do encontro:'),
+          SizedBox(
+            height: 100,
+            child: CupertinoDatePicker(
+              initialDateTime: _start,
+              // backgroundColor: Colors.blueGrey,
+              use24hFormat: true,
+              // mode: CupertinoDatePickerMode.date,
+              // mode: CupertinoDatePickerMode.dateAndTime,
+              // mode: CupertinoDatePickerMode.time,
+              onDateTimeChanged: (datetime) {
+                print(datetime);
+                setState(() {
+                  _start = datetime;
+                });
+              },
+            ),
           ),
-          ListTile(
-            title: Text('${DateFormat('yyyy-MM-dd HH:mm').format(_end)}'),
-            subtitle: Text('Fim do encontro'),
-            trailing: Icon(Icons.date_range),
-            onTap: () {
-              onEndDate(context)
-                  .then((value) => onEndTime(context).then((value) {
-                        _end = DateTime(
-                          _end.year,
-                          _end.month,
-                          _end.day,
-                          _endTime.hour,
-                          _endTime.minute,
-                        );
-                      }));
-            },
+          Text('Fim do encontro:'),
+          SizedBox(
+            height: 100,
+            child: CupertinoDatePicker(
+              initialDateTime: _end,
+              // backgroundColor: Colors.blueGrey,
+              use24hFormat: true,
+              // mode: CupertinoDatePickerMode.date,
+              // mode: CupertinoDatePickerMode.dateAndTime,
+              // mode: CupertinoDatePickerMode.time,
+              onDateTimeChanged: (datetime) {
+                print(datetime);
+                setState(() {
+                  _end = datetime;
+                });
+              },
+            ),
           ),
+          // ListTile(
+          //   title: Text('${DateFormat('yyyy-MM-dd HH:mm').format(_start)}'),
+          //   subtitle: Text('Inicio do encontro'),
+          //   trailing: Icon(Icons.date_range),
+          //   onTap: () {
+          //     onStartDate(context)
+          //         .then((value) => onStartTime(context).then((value) {
+          //               _start = DateTime(
+          //                 _start.year,
+          //                 _start.month,
+          //                 _start.day,
+          //                 _startTime.hour,
+          //                 _startTime.minute,
+          //               );
+          //             }));
+          //   },
+          // ),
+          // ListTile(
+          //   title: Text('${DateFormat('yyyy-MM-dd HH:mm').format(_end)}'),
+          //   subtitle: Text('Fim do encontro'),
+          //   trailing: Icon(Icons.date_range),
+          //   onTap: () {
+          //     onEndDate(context)
+          //         .then((value) => onEndTime(context).then((value) {
+          //               _end = DateTime(
+          //                 _end.year,
+          //                 _end.month,
+          //                 _end.day,
+          //                 _endTime.hour,
+          //                 _endTime.minute,
+          //               );
+          //             }));
+          //   },
+          // ),
           widget.isAddOrUpdate
               ? Container()
               : SwitchListTile(

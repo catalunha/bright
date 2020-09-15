@@ -231,8 +231,8 @@ class ReportAsyncStudentAction extends ReduxAction<AppState> {
           '${meet.labelTo("betweenStartToEnd")}' +
           '|' +
           (meet.paid
-              ? 'R\$ ${meet.labelTo("price")}'
-              : '*R\$ ${meet.labelTo("price")}') +
+              ? '${meet.labelTo("price")}'
+              : '*${meet.labelTo("price")}') +
           '|' +
           '${meet.studentRef.company}' +
           '|' +
