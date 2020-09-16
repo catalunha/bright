@@ -3,18 +3,19 @@ import 'package:bright/conectors/report/report_bydate.dart';
 import 'package:bright/conectors/student/student_filtering.dart';
 import 'package:bright/models/student_model.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class StudentListDS extends StatelessWidget {
   final bool waiting;
   final List<StudentModel> studentList;
   final Function(String) onEditStudentCurrent;
-  final Function(String) onEditMeet;
+  final Function(String) onMeetList;
 
   const StudentListDS({
     Key key,
     this.studentList,
     this.onEditStudentCurrent,
-    this.onEditMeet,
+    this.onMeetList,
     this.waiting,
   }) : super(key: key);
 
@@ -48,52 +49,52 @@ class StudentListDS extends StatelessWidget {
                 color: !student.active
                     ? Colors.brown
                     : Theme.of(context).cardColor,
-                child: Column(
+                child: Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
                   children: [
-                    ListTile(
-                      // selected: !student.active ?? false,
-                      title: Text('${student.name}'),
-                      subtitle: Text('${student.toString()}'),
-                      onTap: () {
-                        onEditMeet(student.id);
-                      },
-                      trailing: IconButton(
-                        icon: Icon(Icons.edit),
-                        onPressed: () async {
-                          onEditStudentCurrent(student.id);
+                    Container(
+                      width: 500,
+                      child: ListTile(
+                        // selected: !student.active ?? false,
+                        title: Text('${student.name}'),
+                        subtitle: Text('${student.toString()}'),
+                        onTap: () {
+                          onMeetList(student.id);
                         },
+                        // trailing: IconButton(
+                        //   icon: Icon(Icons.edit),
+                        //   onPressed: () async {
+                        //     onEditStudentCurrent(student.id);
+                        //   },
+                        // ),
                       ),
                     ),
-                    // Wrap(
-                    //   children: [
-                    //     IconButton(
-                    //       icon: Icon(Icons.edit),
-                    //       onPressed: () async {
-                    //         onEditStudentCurrent(student.id);
-                    //       },
-                    //     ),
-                    //     IconButton(
-                    //       icon: Icon(Icons.link),
-                    //       onPressed: () async {
-                    //         if (student?.urlProgram != null) {
-                    //           if (await canLaunch(student.urlProgram)) {
-                    //             await launch(student.urlProgram);
-                    //           }
-                    //         }
-                    //       },
-                    //     ),
-                    //     IconButton(
-                    //       icon: Icon(Icons.link),
-                    //       onPressed: () async {
-                    //         if (student?.urlDiary != null) {
-                    //           if (await canLaunch(student.urlDiary)) {
-                    //             await launch(student.urlDiary);
-                    //           }
-                    //         }
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () async {
+                        onEditStudentCurrent(student.id);
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.link),
+                      onPressed: () async {
+                        if (student?.urlProgram != null) {
+                          if (await canLaunch(student.urlProgram)) {
+                            await launch(student.urlProgram);
+                          }
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.link),
+                      onPressed: () async {
+                        if (student?.urlDiary != null) {
+                          if (await canLaunch(student.urlDiary)) {
+                            await launch(student.urlDiary);
+                          }
+                        }
+                      },
+                    ),
                   ],
                 ),
               );

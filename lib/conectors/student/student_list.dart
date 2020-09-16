@@ -10,13 +10,13 @@ class ViewModel extends BaseModel<AppState> {
   bool waiting;
   List<StudentModel> studentList;
   Function(String) onEditStudentCurrent;
-  Function(String) onEditMeet;
+  Function(String) onMeetList;
   ViewModel();
   ViewModel.build({
     @required this.waiting,
     @required this.studentList,
     @required this.onEditStudentCurrent,
-    @required this.onEditMeet,
+    @required this.onMeetList,
   }) : super(equals: [
           waiting,
           studentList,
@@ -29,7 +29,7 @@ class ViewModel extends BaseModel<AppState> {
           dispatch(SetStudentCurrentSyncStudentAction(id));
           dispatch(NavigateAction.pushNamed(Routes.studentEdit));
         },
-        onEditMeet: (String id) {
+        onMeetList: (String id) {
           dispatch(SetStudentCurrentSyncStudentAction(id));
           dispatch(NavigateAction.pushNamed(Routes.meetList));
         },
@@ -47,7 +47,7 @@ class StudentList extends StatelessWidget {
         waiting: viewModel.waiting,
         studentList: viewModel.studentList,
         onEditStudentCurrent: viewModel.onEditStudentCurrent,
-        onEditMeet: viewModel.onEditMeet,
+        onMeetList: viewModel.onMeetList,
       ),
     );
   }
