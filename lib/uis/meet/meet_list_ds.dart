@@ -84,7 +84,8 @@ class MeetListDS extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.copy),
+                  tooltip: 'Cópia longa',
+                  icon: Icon(Icons.content_copy),
                   onPressed: () {
                     String _copy = '';
                     _copy = _copy +
@@ -92,6 +93,22 @@ class MeetListDS extends StatelessWidget {
                     _copy = _copy + '\nInvestimento: ${meet.labelTo("price")}';
                     _copy = _copy + '\nAtividades em sala:\n${meet.classAct}';
                     _copy = _copy + '\nAtividades para casa:\n${meet.homeAct}';
+                    FlutterClipboard.copy(_copy).then((value) {
+                      print('copied');
+                      // scaffoldState.currentState.showSnackBar(SnackBar(
+                      //     content:
+                      //         Text('Aula copiada para texto. CTRL-c concluído.')));
+                    });
+                  },
+                ),
+                IconButton(
+                  tooltip: 'Cópia resumida',
+                  icon: Icon(Icons.content_copy),
+                  onPressed: () {
+                    String _copy = '';
+                    _copy = _copy +
+                        'Encontro de ${meet.labelTo("start")} com duração de ${meet.labelTo("betweenStartToEnd")}';
+                    _copy = _copy + '\nInvestimento: ${meet.labelTo("price")}';
                     FlutterClipboard.copy(_copy).then((value) {
                       print('copied');
                       // scaffoldState.currentState.showSnackBar(SnackBar(
