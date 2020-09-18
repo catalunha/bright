@@ -2,8 +2,10 @@ import 'package:bright/conectors/meet/meet_filtering.dart';
 import 'package:bright/conectors/student/student_select.dart';
 import 'package:bright/models/meet_model.dart';
 import 'package:bright/models/student_model.dart';
+import 'package:bright/uis/icons/my_flutter_app_icons.dart';
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class MeetListDS extends StatelessWidget {
   final List<MeetModel> meetList;
@@ -79,13 +81,15 @@ class MeetListDS extends StatelessWidget {
                 ),
                 IconButton(
                   icon: Icon(Icons.edit),
+                  // icon: Icon(MyFlutterApp.access_time),
                   onPressed: () {
                     onEditMeetCurrent(meet.id);
                   },
                 ),
                 IconButton(
                   tooltip: 'Cópia longa',
-                  icon: Icon(Icons.content_copy),
+                  icon: Icon(MdiIcons.clipboardTextMultiple),
+                  // https://materialdesignicons.com/
                   onPressed: () {
                     String _copy = '';
                     _copy = _copy +
@@ -103,7 +107,8 @@ class MeetListDS extends StatelessWidget {
                 ),
                 IconButton(
                   tooltip: 'Cópia resumida',
-                  icon: Icon(Icons.content_copy),
+                  // icon: Icon(MyFlutterApp.access_time),
+                  icon: Icon(MdiIcons.clipboardTextMultipleOutline),
                   onPressed: () {
                     String _copy = '';
                     _copy = _copy +
@@ -118,7 +123,7 @@ class MeetListDS extends StatelessWidget {
                   },
                 ),
                 IconButton(
-                  icon: Icon(Icons.person_add),
+                  icon: Icon(MdiIcons.accountPlus),
                   onPressed: () {
                     onSetMeetCurrent(meet.id);
                     showDialog(

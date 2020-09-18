@@ -42,6 +42,7 @@ dependencies:
 
   flutter_markdown: ^0.4.3
   clipboard: ^0.1.2+8
+  material_design_icons_flutter: ^4.0.5555
 
 dev_dependencies:
   flutter_test:
@@ -57,7 +58,10 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
-
+  fonts:
+   - family:  MyFlutterApp
+     fonts:
+      - asset: assets/fonts/MyFlutterApp.ttf
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

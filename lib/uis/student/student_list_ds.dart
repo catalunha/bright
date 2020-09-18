@@ -3,6 +3,7 @@ import 'package:bright/conectors/report/report_bydate.dart';
 import 'package:bright/conectors/student/student_filtering.dart';
 import 'package:bright/models/student_model.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class StudentListDS extends StatelessWidget {
@@ -76,7 +77,8 @@ class StudentListDS extends StatelessWidget {
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.link),
+                      tooltip: 'Programa do aluno',
+                      icon: Icon(MdiIcons.fileLink),
                       onPressed: () async {
                         if (student?.urlProgram != null) {
                           if (await canLaunch(student.urlProgram)) {
@@ -86,7 +88,8 @@ class StudentListDS extends StatelessWidget {
                       },
                     ),
                     IconButton(
-                      icon: Icon(Icons.link),
+                      tooltip: 'Meu diário sobre o aluno',
+                      icon: Icon(MdiIcons.fileLinkOutline),
                       onPressed: () async {
                         if (student?.urlDiary != null) {
                           if (await canLaunch(student.urlDiary)) {
